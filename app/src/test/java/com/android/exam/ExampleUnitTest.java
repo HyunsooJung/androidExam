@@ -1,4 +1,4 @@
-package com.example.stopwatch;
+package com.android.exam;
 
 import org.junit.Test;
 
