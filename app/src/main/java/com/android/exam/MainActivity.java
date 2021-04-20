@@ -11,7 +11,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.deign.R;
+import com.android.R;
+
 
 public class MainActivity extends AppCompatActivity {
 
