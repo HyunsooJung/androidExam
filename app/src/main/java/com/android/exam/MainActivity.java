@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                 //isRunning = false;
                 //중지버튼 눌렀을시 isrunning이 false여서
                 System.out.println("resetisRun : " + isRunning);
-                if(isRunning){
+                if(isRunning.equals(false)){
                     btn_pause.setText("중지");
                     isRunning = true;
                     mHandler.removeCallbacks(runnable);
@@ -123,6 +123,8 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("isRunjning: "+isRunning);
                 if(isRunning) {
                     System.out.println("isssss123213s : " + isRunning);
+
+                    mHandler.postDelayed(runnable,0);
                     btn_pause.setText("중지");
                 }
                 else {
