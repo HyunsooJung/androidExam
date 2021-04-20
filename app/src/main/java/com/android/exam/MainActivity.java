@@ -11,6 +11,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.deign.R;
+
 public class MainActivity extends AppCompatActivity {
 
     private Button btn_start, btn_record, btn_pause, btn_reset, btn_exit;//시작,기록,일시정지,리셋,종료
