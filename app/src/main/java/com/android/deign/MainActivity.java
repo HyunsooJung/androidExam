@@ -1,11 +1,9 @@
 package com.android.deign;
 
-import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.appcompat.app.AlertDialog;
@@ -27,7 +25,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.deactivity_main);
 
         btn_outs = findViewById(R.id.btn_outs);
-
         //앱종료
         btn_outs.setOnClickListener(new View.OnClickListener() {
             @Override

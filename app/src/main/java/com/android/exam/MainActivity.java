@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -74,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
                 btn_pause.setVisibility(View.VISIBLE);
                 btn_reset.setVisibility(View.VISIBLE);
 
-                run();
+                runs();
                 mHandler.postDelayed(runnable, 10);
                 System.out.println("run12 : "+isRunning);
             }
@@ -126,7 +127,6 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("isRunjning: "+isRunning);
                 if(isRunning) {
                     System.out.println("isssss123213s : " + isRunning);
-
                     mHandler.postDelayed(runnable,0);
                     btn_pause.setText("중지");
                 }
@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void run(){
+    public void runs(){
         if(isRunning){
             System.out.println("sysrunning"+ isRunning);
             runnable = new Runnable() {
@@ -170,6 +170,7 @@ public class MainActivity extends AppCompatActivity {
                 public void run() {
                     System.out.println("isrunning1"+isRunning);
                     System.out.println("bbbbbbbbb");
+
                     long endTime = System.currentTimeMillis();
                     long time = endTime-startTime;
                     long mSec = time / 10;

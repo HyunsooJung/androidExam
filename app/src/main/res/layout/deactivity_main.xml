@@ -113,24 +113,21 @@
 
             <TextView
                 android:id="@+id/textView2"
-                android:layout_width="164dp"
-                android:layout_height="57dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="98dp"
                 android:layout_marginTop="30dp"
                 android:fontFamily="@font/genesis_sans_head_global_light"
                 android:gravity="center"
                 android:letterSpacing="-0.05"
-                android:lineSpacingExtra="7sp"
-                android:text="홈투홈 예약이 신청되었습니다."
+                android:lineSpacingExtra="2sp"
+                android:text="홈투홈 예약이 \n 신청되었습니다."
                 android:textColor="#000000"
                 android:textSize="25sp"
                 android:lineHeight="32sp"
                 android:textStyle="normal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
-                app:layout_constraintVertical_weight="1"
-                app:layout_constraintHorizontal_weight="1"
-                android:textFontWeight="1"/>
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout3" />
 
             <!--</LinearLayout>-->
 
@@ -144,8 +141,8 @@
 
             <TextView
                 android:id="@+id/textView3"
-                android:layout_width="274dp"
-                android:layout_height="72dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:lineHeight="28sp"
                 android:layout_marginLeft="43dp"
                 android:layout_marginTop="30dp"
@@ -153,21 +150,18 @@
                 android:gravity="center_horizontal"
                 android:letterSpacing="-0.05"
                 android:lineSpacingExtra="12sp"
-                android:text="콜센터에서 예약 확정 통화를 드립니다.\n예약 내역은 제네시스 정비 현황/예약/이력메뉴에서 확인 가능합니다."
+                android:text="콜센터에서 예약 확정 통화를 드립니다.\n예약 내역은 제네시스 정비 현황/예약/이력 \n 메뉴에서 확인 가능합니다."
                 android:textColor="#262626"
                 android:textSize="16sp"
                 android:textStyle="normal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView2"
-                app:layout_constraintHorizontal_weight="1"
-                app:layout_constraintVertical_weight="1"
-                android:textFontWeight="1"/>
+                app:layout_constraintTop_toBottomOf="@+id/textView2" />
             <!--</LinearLayout>-->
 
             <TextView
                 android:id="@+id/textView4"
-                android:layout_width="143dp"
-                android:layout_height="19dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="60dp"
                 android:fontFamily="@font/genesis_sans_head_global_light"
@@ -179,10 +173,7 @@
                 android:textSize="18sp"
                 android:textStyle="normal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView3"
-                app:layout_constraintVertical_weight="1"
-                app:layout_constraintHorizontal_weight="1"
-                android:textFontWeight="1"/>
+                app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
             <View
                 android:id="@+id/view1"
@@ -206,8 +197,8 @@
 
             <TextView
                 android:id="@+id/pick"
-                android:layout_width="26dp"
-                android:layout_height="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="48dp"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/genesis_sans_text_global_regular"
@@ -219,14 +210,11 @@
                 android:textSize="14sp"
                 android:textStyle="normal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view1"
-                app:layout_constraintHorizontal_weight="1"
-                app:layout_constraintVertical_weight="1"
-                android:textFontWeight="1"/>
+                app:layout_constraintTop_toBottomOf="@+id/view1" />
 
             <TextView
-                android:layout_width="210dp"
-                android:layout_height="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="42dp"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/genesis_sans_text_global_regular"
@@ -238,10 +226,7 @@
                 android:textStyle="normal"
                 app:layout_constraintStart_toEndOf="@+id/pick"
                 app:layout_constraintTop_toBottomOf="@+id/view1"
-                app:layout_goneMarginTop="20dp"
-                app:layout_constraintHorizontal_weight="1"
-                app:layout_constraintVertical_weight="1"
-                android:textFontWeight="1"/>
+                app:layout_goneMarginTop="20dp" />
 
             <View
                 android:id="@+id/view2"
@@ -265,8 +250,8 @@
 
             <TextView
                 android:id="@+id/textView5"
-                android:layout_width="52dp"
-                android:layout_height="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="35dp"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/genesis_sans_text_global_regular"
@@ -278,14 +263,11 @@
                 android:textSize="14sp"
                 android:textStyle="normal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view2"
-                app:layout_constraintHorizontal_weight="1"
-                app:layout_constraintVertical_weight="1"
-                android:textFontWeight="1"/>
+                app:layout_constraintTop_toBottomOf="@+id/view2" />
 
             <TextView
-                android:layout_width="122dp"
-                android:layout_height="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="29dp"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/genesis_sans_text_global_regular"
@@ -296,10 +278,7 @@
                 android:textSize="14sp"
                 android:textStyle="normal"
                 app:layout_constraintStart_toEndOf="@+id/textView5"
-                app:layout_constraintTop_toBottomOf="@+id/view2"
-                app:layout_constraintHorizontal_weight="1"
-                app:layout_constraintVertical_weight="1"
-                android:textFontWeight="1"/>
+                app:layout_constraintTop_toBottomOf="@+id/view2" />
 
             <View
                 android:id="@+id/view3"
@@ -323,8 +302,8 @@
 
             <TextView
                 android:id="@+id/dil"
-                android:layout_width="52dp"
-                android:layout_height="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="35dp"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/genesis_sans_text_global_regular"
@@ -336,15 +315,12 @@
                 android:textSize="14sp"
                 android:textStyle="normal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view3"
-                app:layout_constraintHorizontal_weight="1"
-                app:layout_constraintVertical_weight="1"
-                android:textFontWeight="1"/>
+                app:layout_constraintTop_toBottomOf="@+id/view3" />
 
 
             <TextView
-                android:layout_width="210dp"
-                android:layout_height="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="29dp"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/genesis_sans_text_global_regular"
@@ -355,10 +331,7 @@
                 android:textSize="14sp"
                 android:textStyle="normal"
                 app:layout_constraintStart_toEndOf="@+id/dil"
-                app:layout_constraintTop_toBottomOf="@+id/view3"
-                app:layout_constraintHorizontal_weight="1"
-                app:layout_constraintVertical_weight="1"
-                android:textFontWeight="1"/>
+                app:layout_constraintTop_toBottomOf="@+id/view3" />
 
             <View
                 android:id="@+id/view4"
@@ -382,8 +355,8 @@
 
             <TextView
                 android:id="@+id/da"
-                android:layout_width="26dp"
-                android:layout_height="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="48dp"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/genesis_sans_text_global_regular"
@@ -395,14 +368,11 @@
                 android:textSize="14sp"
                 android:textStyle="normal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view4"
-                app:layout_constraintHorizontal_weight="1"
-                app:layout_constraintVertical_weight="1"
-                android:textFontWeight="1"/>
+                app:layout_constraintTop_toBottomOf="@+id/view4" />
 
             <TextView
-                android:layout_width="70dp"
-                android:layout_height="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="42dp"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/genesis_sans_text_global_regular"
@@ -413,10 +383,7 @@
                 android:textSize="14sp"
                 android:textStyle="normal"
                 app:layout_constraintStart_toEndOf="@+id/da"
-                app:layout_constraintTop_toBottomOf="@+id/view4"
-                app:layout_constraintHorizontal_weight="1"
-                app:layout_constraintVertical_weight="1"
-                android:textFontWeight="1"/>
+                app:layout_constraintTop_toBottomOf="@+id/view4" />
 
             <View
                 android:id="@+id/view5"
@@ -430,8 +397,8 @@
 
             <TextView
                 android:id="@+id/inf"
-                android:layout_width="87dp"
-                android:layout_height="19dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="50dp"
                 android:fontFamily="@font/genesis_sans_head_global_light"
@@ -442,10 +409,7 @@
                 android:textSize="18sp"
                 android:textStyle="normal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view5"
-                app:layout_constraintHorizontal_weight="1"
-                app:layout_constraintVertical_weight="1"
-                android:textFontWeight="1"/>
+                app:layout_constraintTop_toBottomOf="@+id/view5" />
 
             <View
                 android:id="@+id/view6"
@@ -459,18 +423,18 @@
 
             <FrameLayout
                 android:layout_width="81dp"
-                android:layout_height="55dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view6"
+                android:layout_height="62dp"
                 android:layout_marginLeft="20dp"
-                android:background="#f8f8f8">
+                android:background="#f8f8f8"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view6">
 
             </FrameLayout>
 
             <TextView
                 android:id="@+id/name"
-                android:layout_width="26dp"
-                android:layout_height="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="48dp"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/genesis_sans_text_global_regular"
@@ -480,15 +444,13 @@
                 android:textColor="#000000"
                 android:textSize="14sp"
                 android:textStyle="normal"
+                android:gravity="center"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view6"
-                app:layout_constraintHorizontal_weight="1"
-                app:layout_constraintVertical_weight="1"
-                android:textFontWeight="1"/>
+                app:layout_constraintTop_toBottomOf="@+id/view6" />
 
             <TextView
-                android:layout_width="38dp"
-                android:layout_height="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="42dp"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/genesis_sans_text_global_regular"
@@ -499,10 +461,7 @@
                 android:textSize="14sp"
                 android:textStyle="normal"
                 app:layout_constraintStart_toEndOf="@+id/name"
-                app:layout_constraintTop_toBottomOf="@+id/view6"
-                app:layout_constraintHorizontal_weight="1"
-                app:layout_constraintVertical_weight="1"
-                android:textFontWeight="1"/>
+                app:layout_constraintTop_toBottomOf="@+id/view6" />
 
             <View
                 android:id="@+id/view7"
@@ -516,18 +475,18 @@
 
             <FrameLayout
                 android:layout_width="81dp"
-                android:layout_height="55dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view7"
+                android:layout_height="62dp"
                 android:layout_marginLeft="20dp"
-                android:background="#f8f8f8">
+                android:background="#f8f8f8"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view7">
 
             </FrameLayout>
 
             <TextView
                 android:id="@+id/tel"
-                android:layout_width="51dp"
-                android:layout_height="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="35dp"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/genesis_sans_text_global_regular"
@@ -537,15 +496,13 @@
                 android:textColor="#000000"
                 android:textSize="14sp"
                 android:textStyle="normal"
+                android:gravity="center"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view7"
-                app:layout_constraintHorizontal_weight="1"
-                app:layout_constraintVertical_weight="1"
-                android:textFontWeight="1"/>
+                app:layout_constraintTop_toBottomOf="@+id/view7" />
 
             <TextView
-                android:layout_width="90dp"
-                android:layout_height="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/genesis_sans_text_global_regular"
@@ -556,10 +513,7 @@
                 android:textSize="14sp"
                 android:textStyle="normal"
                 app:layout_constraintStart_toEndOf="@+id/tel"
-                app:layout_constraintTop_toBottomOf="@+id/view7"
-                app:layout_constraintHorizontal_weight="1"
-                app:layout_constraintVertical_weight="1"
-                android:textFontWeight="1"/>
+                app:layout_constraintTop_toBottomOf="@+id/view7" />
 
             <View
                 android:id="@+id/view8"
@@ -573,18 +527,18 @@
 
             <FrameLayout
                 android:layout_width="81dp"
-                android:layout_height="55dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view8"
+                android:layout_height="62dp"
                 android:layout_marginLeft="20dp"
-                android:background="#f8f8f8">
+                android:background="#f8f8f8"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view8">
 
             </FrameLayout>
 
             <TextView
                 android:id="@+id/carn"
-                android:layout_width="51dp"
-                android:layout_height="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="35dp"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/genesis_sans_text_global_regular"
@@ -594,15 +548,13 @@
                 android:textColor="#000000"
                 android:textSize="14sp"
                 android:textStyle="normal"
+                android:gravity="center"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view8"
-                app:layout_constraintHorizontal_weight="1"
-                app:layout_constraintVertical_weight="1"
-                android:textFontWeight="1"/>
+                app:layout_constraintTop_toBottomOf="@+id/view8" />
 
             <TextView
-                android:layout_width="69dp"
-                android:layout_height="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/genesis_sans_text_global_regular"
@@ -613,10 +565,7 @@
                 android:textSize="14sp"
                 android:textStyle="normal"
                 app:layout_constraintStart_toEndOf="@+id/carn"
-                app:layout_constraintTop_toBottomOf="@+id/view8"
-                app:layout_constraintHorizontal_weight="1"
-                app:layout_constraintVertical_weight="1"
-                android:textFontWeight="1"/>
+                app:layout_constraintTop_toBottomOf="@+id/view8" />
 
             <View
                 android:id="@+id/view9"
