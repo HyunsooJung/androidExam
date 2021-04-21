@@ -1,10 +1,13 @@
 package com.android.deign;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +19,8 @@ import com.android.R;
 public class MainActivity extends AppCompatActivity {
 
     private ImageButton btn_outs;//종료
+    private Button btn_move;
+    private TextView tv_exam;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +30,22 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.deactivity_main);
 
         btn_outs = findViewById(R.id.btn_outs);
+        btn_move = findViewById(R.id.btn_move);
+        tv_exam = findViewById(R.id.tv_exam);
+
+        Intent intent = getIntent();
+        String str = intent.getStringExtra("str");
+
+        tv_exam.setText(str);
+
+        btn_move.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, com.android.exam.MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
         //앱종료
         btn_outs.setOnClickListener(new View.OnClickListener() {
             @Override

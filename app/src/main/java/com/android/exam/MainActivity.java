@@ -2,6 +2,7 @@ package com.android.exam;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -21,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView timeView, recordView; // 스탑워치시간, 기록시간
     private Thread timeThread = null;
     private Boolean isRunning = true;
+    private Button btn_mv;//designexam으로 이동
+    private String str;
 
     private Handler mHandler = new Handler();
     private Runnable runnable;
@@ -38,6 +41,18 @@ public class MainActivity extends AppCompatActivity {
         timeView = findViewById(R.id.timeView);//스탑워치시간
         recordView = findViewById(R.id.recordView);//기록시간
         btn_exit = findViewById(R.id.btn_exit);//앱 종료
+        btn_mv = findViewById(R.id.btn_mv);
+
+        //designexam으로 이동
+        btn_mv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                str = timeView.getText().toString();
+                Intent intent = new Intent(MainActivity.this, com.android.deign.MainActivity.class);
+                intent.putExtra("str",str);
+                startActivity(intent);
+            }
+        });
 
         //앱종료
         btn_exit.setOnClickListener(new View.OnClickListener() {
