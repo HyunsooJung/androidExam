@@ -8,10 +8,11 @@ import android.widget.EditText;
 
 import com.android.R;
 
-public class MainActivity extends AppCompatActivity {
+public class SharedPreferenceActivity extends AppCompatActivity {
 
     private EditText et_save;
-    String shared = "file";
+    String shared = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

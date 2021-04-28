@@ -13,10 +13,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.R;
+import com.android.exam.StopWatchActivity;
 
 
-
-public class MainActivity extends AppCompatActivity {
+public class DesignActivity extends AppCompatActivity {
 
     private ImageButton btn_outs;//종료
     private Button btn_move;
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
         btn_move.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, com.android.exam.MainActivity.class);
+                Intent intent = new Intent(DesignActivity.this, StopWatchActivity.class);
                 startActivity(intent);
             }
         });
@@ -50,14 +50,14 @@ public class MainActivity extends AppCompatActivity {
         btn_outs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder out = new AlertDialog.Builder(MainActivity.this);
+                AlertDialog.Builder out = new AlertDialog.Builder(DesignActivity.this);
                 out.setTitle("종료");
                 out.setMessage("앱을 종료하시겠습니까?");
 
                 out.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        System.exit(0);
+                        finish();
                     }
                 });
 

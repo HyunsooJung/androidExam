@@ -10,22 +10,20 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidExam">
 
-        <activity android:name=".exam.MainActivity">
+        <activity android:name=".exam.StopWatchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".deign.MainActivity">
+        <activity android:name=".deign.DesignActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".recycler.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,8 +31,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".sharedpreference.SharedPreferenceActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-        <activity android:name=".sharedpreference.MainActivity">
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".notepad.NotPadActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

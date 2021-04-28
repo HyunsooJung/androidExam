@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -14,9 +13,10 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.R;
+import com.android.deign.DesignActivity;
 
 
-public class MainActivity extends AppCompatActivity {
+public class StopWatchActivity extends AppCompatActivity {
 
     private Button btn_start, btn_record, btn_pause, btn_reset, btn_exit;//시작,기록,일시정지,리셋,종료
     private TextView timeView, recordView; // 스탑워치시간, 기록시간
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 str = timeView.getText().toString();
-                Intent intent = new Intent(MainActivity.this, com.android.deign.MainActivity.class);
+                Intent intent = new Intent(StopWatchActivity.this, DesignActivity.class);
                 intent.putExtra("str",str);
                 startActivity(intent);
             }
@@ -58,14 +58,14 @@ public class MainActivity extends AppCompatActivity {
         btn_exit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder ad = new AlertDialog.Builder(com.android.exam.MainActivity.this);
+                AlertDialog.Builder ad = new AlertDialog.Builder(StopWatchActivity.this);
                 ad.setTitle("스탑워치");
                 ad.setMessage("앱을 종료하시겠습니까?");
 
                 ad.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        System.exit(0);
+                        finish();
                     }
                 });
 
@@ -187,6 +187,9 @@ public class MainActivity extends AppCompatActivity {
                     System.out.println("bbbbbbbbb");
 
                     long endTime = System.currentTimeMillis();
+                    System.out.println("startTime : "+startTime);
+                    System.out.println("endTime : "+endTime);
+
                     long time = endTime-startTime;
                     long mSec = time / 10;
                     long sec = mSec / 100;
@@ -199,6 +202,7 @@ public class MainActivity extends AppCompatActivity {
                     mHandler.postDelayed(runnable, 10);
                 }
             };
+
         }
 
     }

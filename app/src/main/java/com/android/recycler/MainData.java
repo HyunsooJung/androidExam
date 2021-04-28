@@ -5,9 +5,13 @@ public class MainData {
     private String tv_name;
     private int  btn_del;
 
+
     public MainData(String tv_name, int btn_del) {
         this.tv_name = tv_name;
         this.btn_del = btn_del;
+    }
+
+    public MainData() {
     }
 
     public String getTv_name() {
