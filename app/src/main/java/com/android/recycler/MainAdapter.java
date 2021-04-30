@@ -68,14 +68,14 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.CustomViewHold
         holder.btn_del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                remove(holder.getAdapterPosition());
+                remove(position);
             }
         });
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(v.getContext(),holder.getAdapterPosition()+"클릭되었습니다.",Toast.LENGTH_SHORT).show();
+                Toast.makeText(v.getContext(),position + "클릭되었습니다.",Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -90,7 +90,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.CustomViewHold
 
         try {
             arrayList.remove(position);
-            notifyItemRemoved(position);
+            notifyDataSetChanged();//notifyItemRemoved(position);
         }catch (IndexOutOfBoundsException e){
             e.printStackTrace();
         }
