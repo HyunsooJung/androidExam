@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidExam">
-
+        <activity android:name=".notepad.AddActivity"></activity>
         <activity android:name=".exam.StopWatchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -38,7 +38,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".notepad.NotPadActivity">
+        <activity android:name=".notepad.NotePadActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
