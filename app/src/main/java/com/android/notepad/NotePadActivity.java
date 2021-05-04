@@ -2,11 +2,13 @@ package com.android.notepad;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -165,17 +167,32 @@ public class NotePadActivity extends AppCompatActivity {
                 itemView.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
+                        AlertDialog.Builder adb = new AlertDialog.Builder(NotePadActivity.this);
+                        adb.setTitle("삭제");
+                        adb.setMessage("이 메모를 삭제하시겠습니까?");
 
-                        int position = getAdapterPosition();
-                        int seq = (int)mtitle.getTag();
-                        Log.v("c: ","seq : "+seq);
-                        if(position != RecyclerView.NO_POSITION){
-                            Log.v("123c: ","seq : "+seq);
-                            dbHelper.deleteMemo(seq);
-                            removeItem(position);
-                            notifyDataSetChanged();
-                        }
+                        adb.setPositiveButton("아니오", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
 
+                            }
+                        });
+
+                        adb.setNegativeButton("예", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                int position = getAdapterPosition();
+                                int seq = (int)mtitle.getTag();
+                                Log.v("c: ","seq : "+seq);
+                                if(position != RecyclerView.NO_POSITION){
+                                    Log.v("123c: ","seq : "+seq);
+                                    dbHelper.deleteMemo(seq);
+                                    removeItem(position);
+                                    notifyDataSetChanged();
+                                }
+                            }
+                        });
+                        adb.show();
                         return false;
                     }
                 });
