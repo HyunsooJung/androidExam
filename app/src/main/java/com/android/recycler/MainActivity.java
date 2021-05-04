@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import com.android.R;
 import com.android.deign.DesignActivity;
 import com.android.exam.StopWatchActivity;
+import com.android.notepad.NotePadActivity;
 import com.android.sharedpreference.SharedPreferenceActivity;
 
 import java.util.ArrayList;
@@ -55,6 +56,12 @@ public class MainActivity extends AppCompatActivity {
         shdata.setAppName("shared");
         shdata.setCls(SharedPreferenceActivity.class);
         arrayList.add(shdata);
+        mainAdapter.notifyDataSetChanged();
+
+        ActivityData ndata = new ActivityData();
+        ndata.setAppName("note");
+        ndata.setCls(NotePadActivity.class);
+        arrayList.add(ndata);
         mainAdapter.notifyDataSetChanged();
 
         Button btn_add = findViewById(R.id.btn_add);
