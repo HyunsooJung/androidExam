@@ -62,6 +62,11 @@ public class SQLiteHelper {
         db.execSQL(sql);
     }
 
+    public void updateMemo(Memo memo){
+        String sql = "UPDATE "+TABLE_NAME+" SET mtitle = '"+memo.mtitle+"',mcontent = '"+memo.mcontent+"',mdate = '"+memo.mdate+"' WHERE seq = '"+memo.seq+"';";
+        db.execSQL(sql);
+    }
+
     public ArrayList<Memo> selectAll(){
         String sql = "SELECT * FROM " +TABLE_NAME;
 
@@ -79,6 +84,19 @@ public class SQLiteHelper {
         result.close();
 
         return list;
+    }
+
+    public void selectOne(int position){
+        String sql = "SELECT * FROM "+TABLE_NAME+" WHERE seq = "+position+";";
+        Cursor result = db.rawQuery(sql, null);
+        if(result.moveToFirst()){
+            int seq = result.getInt(0);
+            String mtitle = result.getString(1);
+            String mcontent = result.getString(2);
+            String mdate = result.getString(3);
+            result.moveToNext();
+        }
+        result.close();
     }
 
 }

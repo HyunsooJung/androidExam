@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -23,6 +24,7 @@ import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.android.R;
+import com.android.recycler.ModActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +53,36 @@ public class NotePadActivity extends AppCompatActivity {
             recyclerAdpater.notifyDataSetChanged();
 
             dbHelper.InsertMemo(memo);
+
         }
+        if(requestCode == 1){
+            String uTitle = data.getStringExtra("uTitle");
+            String uContent = data.getStringExtra("uContent");
+            String uDate = data.getStringExtra("uDate");
+            int uSeq = data.getIntExtra("uSeq",0);
+            Log.v("an1234","an1234 : "+uSeq);
+            Memo uMemo = new Memo(uSeq,uTitle, uContent, uDate, 0);
+
+            Log.v("an","an123 : "+uMemo);
+
+            dbHelper.updateMemo(uMemo);
+
+            recyclerView = findViewById(R.id.recycler_view);
+            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(NotePadActivity.this);
+            recyclerView.setLayoutManager(linearLayoutManager);
+
+            //recyclerAdpater.addItem(uMemo);
+            memoList = dbHelper.selectAll();
+            recyclerAdpater = new RecyclerAdpater(memoList);
+            recyclerView.setAdapter(recyclerAdpater);
+            recyclerAdpater.notifyDataSetChanged();
+
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     @Override
@@ -68,6 +99,7 @@ public class NotePadActivity extends AppCompatActivity {
 
         recyclerAdpater = new RecyclerAdpater(memoList);
         recyclerView.setAdapter(recyclerAdpater);
+        recyclerAdpater.notifyDataSetChanged();
         btnAdd = findViewById(R.id.btnAdd);
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
@@ -145,6 +177,28 @@ public class NotePadActivity extends AppCompatActivity {
                         }
 
                         return false;
+                    }
+                });
+
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int position = getAdapterPosition();
+                        int seq = (int)mtitle.getTag();
+
+                        if(position != RecyclerView.NO_POSITION){
+                            dbHelper.selectOne(seq);
+                            String title = (String) mtitle.getText();
+                            String content = (String) mcontent.getText();
+                            String date = (String) mdate.getText();
+                            Context context = v.getContext();
+                            Intent intent = new Intent(context, ModActivity.class);
+                            intent.putExtra("seq", seq);
+                            intent.putExtra("title", title);
+                            intent.putExtra("content", content);
+                            intent.putExtra("date", date);
+                            startActivityForResult(intent,1);
+                        }
                     }
                 });
             }
