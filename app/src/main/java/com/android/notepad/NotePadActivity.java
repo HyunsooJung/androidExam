@@ -29,7 +29,7 @@ public class NotePadActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private RecyclerAdpater recyclerAdpater;
-    private Button btnAdd;
+    private Button btnAdd, btnCanc, btndel;
 
     List<Memo> memoList;
 
@@ -84,12 +84,30 @@ public class NotePadActivity extends AppCompatActivity {
         recyclerView.setAdapter(recyclerAdpater);
         recyclerAdpater.notifyDataSetChanged();
         btnAdd = findViewById(R.id.btnAdd);
-
+        btndel = findViewById(R.id.btnDel);
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(NotePadActivity.this, AddActivity.class);
                 startActivityForResult(intent,0);
+            }
+        });
+
+        btnCanc = findViewById(R.id.btnCc);
+        btnCanc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                recyclerView = findViewById(R.id.recycler_view);
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(NotePadActivity.this);
+                recyclerView.setLayoutManager(linearLayoutManager);
+
+                memoList = dbHelper.selectAll();
+                recyclerAdpater = new RecyclerAdpater(memoList);
+                recyclerView.setAdapter(recyclerAdpater);
+                btnAdd.setVisibility(View.VISIBLE);
+                btnCanc.setVisibility(View.GONE);
+                btndel.setVisibility(View.GONE);
+                recyclerAdpater.notifyDataSetChanged();
             }
         });
 
@@ -100,6 +118,7 @@ public class NotePadActivity extends AppCompatActivity {
         private boolean isDelete = false;
         private Button btnDel = findViewById(R.id.btnDel);
         private Button btnAdd = findViewById(R.id.btnAdd);
+        private Button btnCc = findViewById(R.id.btnCc);
 
         public RecyclerAdpater(List<Memo> listdata) {
             this.listdata = listdata;
@@ -156,6 +175,7 @@ public class NotePadActivity extends AppCompatActivity {
                         isDelete = true;
                         btnDel.setVisibility(View.VISIBLE);
                         btnAdd.setVisibility(View.GONE);
+                        btnCc.setVisibility(View.VISIBLE);
                         notifyDataSetChanged();
                         /*
                         AlertDialog.Builder adb = new AlertDialog.Builder(NotePadActivity.this);
