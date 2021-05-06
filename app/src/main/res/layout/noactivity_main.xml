@@ -15,11 +15,29 @@
         android:layout_weight="1">
     </androidx.recyclerview.widget.RecyclerView>
 
-    <Button
-        android:id="@+id/btnAdd"
-        android:text="메모하기"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnDel"
+            android:text="삭제하기"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:visibility="invisible"/>
+
+        <Button
+            android:id="@+id/btnAdd"
+            android:text="메모하기"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:visibility="visible"/>
+
+    </FrameLayout>
+
 
 
 </LinearLayout>

@@ -1,11 +1,20 @@
 package com.android.notepad;
 
-public class Memo {
+import java.io.Serializable;
+
+public class Memo implements Serializable {
+    private static final long serialVersionUID = 1L;
     int seq;
     String mtitle;
     String mcontent;
     String mdate;
     int isdone;
+
+    public Memo(String mtitle, String mcontent, String mdate) {
+        this.mtitle = mtitle;
+        this.mcontent = mcontent;
+        this.mdate = mdate;
+    }
 
     public Memo(int seq, String mtitle, String mcontent, String mdate, int isdone) {
         this.seq = seq;

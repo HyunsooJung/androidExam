@@ -57,10 +57,10 @@ public class AddActivity extends AppCompatActivity {
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
                     String substr = simpleDateFormat.format(date);
 
+                    Memo addMemo = new Memo(str,str2,substr);
+
                     Intent intent = new Intent();
-                    intent.putExtra("main", str);
-                    intent.putExtra("contents", str2);
-                    intent.putExtra("sub", substr);
+                    intent.putExtra("addMemo", addMemo);
                     setResult(0,intent);
                     finish();
                 }

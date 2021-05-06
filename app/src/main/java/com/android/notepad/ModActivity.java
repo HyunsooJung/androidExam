@@ -1,4 +1,4 @@
-package com.android.recycler;
+package com.android.notepad;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,9 +11,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.android.R;
-import com.android.notepad.AddActivity;
-import com.android.notepad.Memo;
-import com.android.notepad.NotePadActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -46,31 +43,25 @@ public class ModActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        int seq = intent.getIntExtra("seq",0);
-        String title = intent.getStringExtra("title");
-        String content = intent.getStringExtra("content");
-        String date = intent.getStringExtra("date");
+        Memo memo = (Memo)intent.getSerializableExtra("memo");
 
-        titlem.setText(title);
-        contentm.setText(content);
-        tdate.setText(date);
-        Log.v("title : ","title : "+title);
-        Log.v("seq : ","seq : "+seq);
+        titlem.setText(memo.getMtitle());
+        contentm.setText(memo.getMcontent());
+        tdate.setText(memo.getMdate());
 
+        Log.v("titlem : ","titlem : "+titlem);
         btn_mod.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String str = titlem.getText().toString();
-                String str2 = contentm.getText().toString();
-                if(str.length() > 0 && str2.length() > 0 ) {
+                Memo memos = new Memo(titlem.getText().toString(),contentm.getText().toString(),tdate.getText().toString());
+                memos.setSeq(memo.getSeq());
+                if(memos.getMtitle().length() > 0 && memos.getMcontent().length() > 0 ) {
                     Date date = new Date();
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
                     String subDate = simpleDateFormat.format(date);
 
                     Intent intent = new Intent();
-                    intent.putExtra("uSeq",seq);
-                    intent.putExtra("uTitle", str);
-                    intent.putExtra("uContent", str2);
+                    intent.putExtra("memos",memos);
                     intent.putExtra("uDate", subDate);
                     setResult(1, intent);
                     finish();

@@ -10,25 +10,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.Toolbar;
 
 import com.android.R;
-import com.android.recycler.ModActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class NotePadActivity extends AppCompatActivity {
@@ -46,39 +38,28 @@ public class NotePadActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(requestCode == 0){
-            String strMain = data.getStringExtra("main");
-            String strMain2 = data.getStringExtra("contents");
-            String strSub = data.getStringExtra("sub");
-
-            Memo memo = new Memo(strMain, strMain2, strSub, 0);
-            recyclerAdpater.addItem(memo);
+            Memo addMemo = (Memo)data.getSerializableExtra("addMemo");
+            recyclerAdpater.addItem(addMemo);
             recyclerAdpater.notifyDataSetChanged();
 
-            dbHelper.InsertMemo(memo);
-
+            dbHelper.InsertMemo(addMemo);
         }
         if(requestCode == 1){
-            String uTitle = data.getStringExtra("uTitle");
-            String uContent = data.getStringExtra("uContent");
+            Memo memos = (Memo)data.getSerializableExtra("memos");
             String uDate = data.getStringExtra("uDate");
-            int uSeq = data.getIntExtra("uSeq",0);
-            Log.v("an1234","an1234 : "+uSeq);
-            Memo uMemo = new Memo(uSeq,uTitle, uContent, uDate, 0);
 
-            Log.v("an","an123 : "+uMemo);
+            memos.setMdate(uDate);
 
-            dbHelper.updateMemo(uMemo);
+            dbHelper.updateMemo(memos);
 
             recyclerView = findViewById(R.id.recycler_view);
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(NotePadActivity.this);
             recyclerView.setLayoutManager(linearLayoutManager);
 
-            //recyclerAdpater.addItem(uMemo);
             memoList = dbHelper.selectAll();
             recyclerAdpater = new RecyclerAdpater(memoList);
             recyclerView.setAdapter(recyclerAdpater);
             recyclerAdpater.notifyDataSetChanged();
-
         }
     }
 
@@ -114,7 +95,11 @@ public class NotePadActivity extends AppCompatActivity {
 
     }
     public class RecyclerAdpater extends RecyclerView.Adapter<RecyclerAdpater.ItemViewHolder> {
+
         private List<Memo> listdata;
+        private boolean isDelete = false;
+        private Button btnDel = findViewById(R.id.btnDel);
+        private Button btnAdd = findViewById(R.id.btnAdd);
 
         public RecyclerAdpater(List<Memo> listdata) {
             this.listdata = listdata;
@@ -130,12 +115,11 @@ public class NotePadActivity extends AppCompatActivity {
         @Override
         public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
             Memo memo = listdata.get(position);
-
             holder.mtitle.setTag(memo.getSeq());
-
             holder.mtitle.setText(memo.getMtitle());
             holder.mcontent.setText(memo.getMcontent());
             holder.mdate.setText(memo.getMdate());
+            holder.btn_ch.setVisibility(isDelete ? View.VISIBLE : View.GONE);
 
         }
 
@@ -157,19 +141,26 @@ public class NotePadActivity extends AppCompatActivity {
             private TextView mtitle;
             private TextView mcontent;
             private TextView mdate;
+            private CheckBox btn_ch;
 
             public ItemViewHolder(@NonNull View itemView) {
                 super(itemView);
                 mtitle = (TextView)itemView.findViewById(R.id.mtitle);
                 this.mcontent = itemView.findViewById(R.id.mcontent);
                 this.mdate = itemView.findViewById(R.id.mdate);
+                this.btn_ch = itemView.findViewById(R.id.btn_ch);
 
                 itemView.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
+                        isDelete = true;
+                        btnDel.setVisibility(View.VISIBLE);
+                        btnAdd.setVisibility(View.GONE);
+                        notifyDataSetChanged();
+                        /*
                         AlertDialog.Builder adb = new AlertDialog.Builder(NotePadActivity.this);
                         adb.setTitle("삭제");
-                        adb.setMessage("이 메모를 삭제하시겠습니까?");
+                        adb.setMessage("메모를 삭제하시겠습니까?");
 
                         adb.setPositiveButton("아니오", new DialogInterface.OnClickListener() {
                             @Override
@@ -177,7 +168,6 @@ public class NotePadActivity extends AppCompatActivity {
 
                             }
                         });
-
                         adb.setNegativeButton("예", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -193,10 +183,10 @@ public class NotePadActivity extends AppCompatActivity {
                             }
                         });
                         adb.show();
+                        */
                         return false;
                     }
                 });
-
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -205,15 +195,11 @@ public class NotePadActivity extends AppCompatActivity {
 
                         if(position != RecyclerView.NO_POSITION){
                             dbHelper.selectOne(seq);
-                            String title = (String) mtitle.getText();
-                            String content = (String) mcontent.getText();
-                            String date = (String) mdate.getText();
+                            Memo memo = listdata.get(position);
+                            memo.setSeq(seq);
                             Context context = v.getContext();
                             Intent intent = new Intent(context, ModActivity.class);
-                            intent.putExtra("seq", seq);
-                            intent.putExtra("title", title);
-                            intent.putExtra("content", content);
-                            intent.putExtra("date", date);
+                            intent.putExtra("memo",memo);
                             startActivityForResult(intent,1);
                         }
                     }
