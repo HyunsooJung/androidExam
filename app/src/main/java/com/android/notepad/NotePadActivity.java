@@ -101,6 +101,7 @@ public class NotePadActivity extends AppCompatActivity {
         btnCanc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                i=0;
                 recyclerView = findViewById(R.id.recycler_view);
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(NotePadActivity.this);
                 recyclerView.setLayoutManager(linearLayoutManager);
@@ -120,6 +121,7 @@ public class NotePadActivity extends AppCompatActivity {
 
         private List<Memo> listdata;
         private boolean isDelete = false;
+        private boolean isbtn = false;
         private Button btnDel = findViewById(R.id.btnDel);
         private Button btnAdd = findViewById(R.id.btnAdd);
         private Button btnCc = findViewById(R.id.btnCc);
@@ -196,9 +198,19 @@ public class NotePadActivity extends AppCompatActivity {
 
                         int position = getAdapterPosition();
                         int seq = (int)mtitle.getTag();
-                        CkAr[i] = seq;
-                        PoAr[i] = position;
-                        i++;
+
+                        if (btn_ch.isChecked()){
+                            CkAr[i] = seq;
+                            PoAr[i] = position;
+                            i++;
+                        }
+                        else {
+                            i--;
+                        }
+
+                        Log.v("i: ","i :"+ i);
+
+
                     }
                 });
 
@@ -221,7 +233,6 @@ public class NotePadActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
-                                int position = getAdapterPosition();
                                 for(int j=i-1; j>=0; j--){
                                     dbHelper.deleteMemo(CkAr[j]);
                                     removeItem(PoAr[j]);
