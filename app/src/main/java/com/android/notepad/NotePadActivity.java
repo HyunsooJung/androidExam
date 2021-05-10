@@ -21,6 +21,8 @@ import android.widget.TextView;
 
 import com.android.R;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 public class NotePadActivity extends AppCompatActivity {
@@ -33,6 +35,7 @@ public class NotePadActivity extends AppCompatActivity {
 
     List<Memo> memoList;
 
+    int i=0;
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -40,9 +43,9 @@ public class NotePadActivity extends AppCompatActivity {
         if(requestCode == 0){
             Memo addMemo = (Memo)data.getSerializableExtra("addMemo");
             recyclerAdpater.addItem(addMemo);
+            dbHelper.InsertMemo(addMemo);
             recyclerAdpater.notifyDataSetChanged();
 
-            dbHelper.InsertMemo(addMemo);
         }
         if(requestCode == 1){
             Memo memos = (Memo)data.getSerializableExtra("memos");
@@ -83,6 +86,7 @@ public class NotePadActivity extends AppCompatActivity {
         recyclerAdpater = new RecyclerAdpater(memoList);
         recyclerView.setAdapter(recyclerAdpater);
         recyclerAdpater.notifyDataSetChanged();
+
         btnAdd = findViewById(R.id.btnAdd);
         btndel = findViewById(R.id.btnDel);
         btnAdd.setOnClickListener(new View.OnClickListener() {
@@ -119,6 +123,9 @@ public class NotePadActivity extends AppCompatActivity {
         private Button btnDel = findViewById(R.id.btnDel);
         private Button btnAdd = findViewById(R.id.btnAdd);
         private Button btnCc = findViewById(R.id.btnCc);
+
+        int[] CkAr= new int[memoList.size()];
+        int[] PoAr= new int[memoList.size()];
 
         public RecyclerAdpater(List<Memo> listdata) {
             this.listdata = listdata;
@@ -163,6 +170,7 @@ public class NotePadActivity extends AppCompatActivity {
             private CheckBox btn_ch;
 
             public ItemViewHolder(@NonNull View itemView) {
+
                 super(itemView);
                 mtitle = (TextView)itemView.findViewById(R.id.mtitle);
                 this.mcontent = itemView.findViewById(R.id.mcontent);
@@ -177,7 +185,27 @@ public class NotePadActivity extends AppCompatActivity {
                         btnAdd.setVisibility(View.GONE);
                         btnCc.setVisibility(View.VISIBLE);
                         notifyDataSetChanged();
-                        /*
+                        return false;
+                    }
+                });
+
+                //메모 버튼 클릭
+                btn_ch.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        int position = getAdapterPosition();
+                        int seq = (int)mtitle.getTag();
+                        CkAr[i] = seq;
+                        PoAr[i] = position;
+                        i++;
+                    }
+                });
+
+                //삭제
+                btnDel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
                         AlertDialog.Builder adb = new AlertDialog.Builder(NotePadActivity.this);
                         adb.setTitle("삭제");
                         adb.setMessage("메모를 삭제하시겠습니까?");
@@ -188,25 +216,38 @@ public class NotePadActivity extends AppCompatActivity {
 
                             }
                         });
+
                         adb.setNegativeButton("예", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+
                                 int position = getAdapterPosition();
-                                int seq = (int)mtitle.getTag();
-                                Log.v("c: ","seq : "+seq);
-                                if(position != RecyclerView.NO_POSITION){
-                                    Log.v("123c: ","seq : "+seq);
-                                    dbHelper.deleteMemo(seq);
-                                    removeItem(position);
-                                    notifyDataSetChanged();
+                                for(int j=i-1; j>=0; j--){
+                                    dbHelper.deleteMemo(CkAr[j]);
+                                    removeItem(PoAr[j]);
+
                                 }
+                                i=0;
+                                notifyDataSetChanged();
+                                recyclerView = findViewById(R.id.recycler_view);
+                                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(NotePadActivity.this);
+                                recyclerView.setLayoutManager(linearLayoutManager);
+
+                                memoList = dbHelper.selectAll();
+                                recyclerAdpater = new RecyclerAdpater(memoList);
+                                recyclerView.setAdapter(recyclerAdpater);
+                                btnAdd.setVisibility(View.VISIBLE);
+                                btnCanc.setVisibility(View.GONE);
+                                btndel.setVisibility(View.GONE);
+                                recyclerAdpater.notifyDataSetChanged();
+
                             }
                         });
                         adb.show();
-                        */
-                        return false;
                     }
                 });
+
+                //수정화면이동
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
