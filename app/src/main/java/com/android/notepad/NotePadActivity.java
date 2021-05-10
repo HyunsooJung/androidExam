@@ -212,6 +212,7 @@ public class NotePadActivity extends AppCompatActivity {
                         }
                         else {
                             i--;
+                            CkAr[position] = 0;
                         }
 
                         Log.v("i: ","i :"+ i);
