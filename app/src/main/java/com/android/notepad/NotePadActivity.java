@@ -35,6 +35,17 @@ public class NotePadActivity extends AppCompatActivity {
 
     List<Memo> memoList;
 
+    void selectAll(){
+        recyclerView = findViewById(R.id.recycler_view);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(NotePadActivity.this);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        memoList = dbHelper.selectAll();
+        recyclerAdpater = new RecyclerAdpater(memoList);
+        recyclerView.setAdapter(recyclerAdpater);
+        recyclerAdpater.notifyDataSetChanged();
+    }
+
     int i=0;
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -45,6 +56,8 @@ public class NotePadActivity extends AppCompatActivity {
             recyclerAdpater.addItem(addMemo);
             dbHelper.InsertMemo(addMemo);
             recyclerAdpater.notifyDataSetChanged();
+            selectAll();
+
 
         }
         if(requestCode == 1){
@@ -55,14 +68,7 @@ public class NotePadActivity extends AppCompatActivity {
 
             dbHelper.updateMemo(memos);
 
-            recyclerView = findViewById(R.id.recycler_view);
-            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(NotePadActivity.this);
-            recyclerView.setLayoutManager(linearLayoutManager);
-
-            memoList = dbHelper.selectAll();
-            recyclerAdpater = new RecyclerAdpater(memoList);
-            recyclerView.setAdapter(recyclerAdpater);
-            recyclerAdpater.notifyDataSetChanged();
+            selectAll();
         }
     }
 
