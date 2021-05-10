@@ -35,6 +35,17 @@ public class NotePadActivity extends AppCompatActivity {
 
     List<Memo> memoList;
 
+    void selectAll(){
+        recyclerView = findViewById(R.id.recycler_view);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(NotePadActivity.this);
+        recyclerView.setLayoutManager(linearLayoutManager);
+
+        memoList = dbHelper.selectAll();
+        recyclerAdpater = new RecyclerAdpater(memoList);
+        recyclerView.setAdapter(recyclerAdpater);
+        recyclerAdpater.notifyDataSetChanged();
+    }
+
     int i=0;
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -56,7 +67,7 @@ public class NotePadActivity extends AppCompatActivity {
             memos.setMdate(uDate);
 
             dbHelper.updateMemo(memos);
-
+            recyclerAdpater.notifyDataSetChanged();
             selectAll();
         }
     }
@@ -195,8 +206,8 @@ public class NotePadActivity extends AppCompatActivity {
                         int seq = (int)mtitle.getTag();
 
                         if (btn_ch.isChecked()){
-                            CkAr[i] = seq;
-                            PoAr[i] = position;
+                            CkAr[position] = seq;
+                            PoAr[position] = position;
                             i++;
                         }
                         else {
@@ -228,10 +239,14 @@ public class NotePadActivity extends AppCompatActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
-                                for(int j=i-1; j>=0; j--){
-                                    dbHelper.deleteMemo(CkAr[j]);
-                                    removeItem(PoAr[j]);
-
+                                for(int j=CkAr.length-1; j>=0; j--){
+                                    if(CkAr[j]>0){
+                                        Log.v("ckar: ","ckar: "+CkAr[j]);
+                                        Log.v("PoAr: ","PoAr: "+PoAr[j]);
+                                        Log.v("ckarlength: ","ckarlength: "+CkAr.length);
+                                        dbHelper.deleteMemo(CkAr[j]);
+                                        removeItem(PoAr[j]);
+                                    }
                                 }
                                 i=0;
                                 notifyDataSetChanged();
@@ -246,7 +261,6 @@ public class NotePadActivity extends AppCompatActivity {
                                 btnCanc.setVisibility(View.GONE);
                                 btndel.setVisibility(View.GONE);
                                 recyclerAdpater.notifyDataSetChanged();
-
                             }
                         });
                         adb.show();
