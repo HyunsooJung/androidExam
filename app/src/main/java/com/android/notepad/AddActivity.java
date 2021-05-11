@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,6 +22,7 @@ public class AddActivity extends AppCompatActivity {
 
     EditText edtTitle, edtMemo;
     Button btnDone, btnNo;
+//    Button btn_mod;
     TextView dates;
 
     //메모 추가 취소시 전화면으로 이동
@@ -40,11 +42,10 @@ public class AddActivity extends AppCompatActivity {
 
         edtTitle = findViewById(R.id.edtTitle);
         edtMemo = findViewById(R.id.edtMemo);
+        dates= findViewById(R.id.date);
 
         btnDone = findViewById(R.id.btnDone);
         btnNo = (Button)findViewById(R.id.btnNo);
-
-        dates= findViewById(R.id.date);
         Date d = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         dates.setText("오늘날짜 : "+sdf.format(d));
@@ -78,6 +79,42 @@ public class AddActivity extends AppCompatActivity {
             }
         });
 
+        //btn_mod = findViewById(R.id.btn_mod);
 
+
+        //메모 수정, 인텐트로 데이터 받기
+/* 한 화면에서 수정, 메모추가 하기
+        Intent intent = getIntent();
+
+        if(intent.getSerializableExtra("memo") != null){
+
+            btn_mod.setVisibility(View.VISIBLE);
+            btnDone.setVisibility(View.GONE);
+            Log.v("aaa","aaa");
+            Memo memo = (Memo)intent.getSerializableExtra("memo");
+            edtTitle.setText(memo.getMtitle());
+            edtMemo.setText(memo.getMcontent());
+            dates.setText(memo.getMdate());
+
+            btn_mod.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Memo memos = new Memo(edtTitle.getText().toString(),edtMemo.getText().toString(),dates.getText().toString());
+                    memos.setSeq(memo.getSeq());
+                    if(memos.getMtitle().length() > 0 && memos.getMcontent().length() > 0 ) {
+                        Date date = new Date();
+                        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                        String subDate = simpleDateFormat.format(date);
+
+                        Intent intent = new Intent();
+                        intent.putExtra("memos",memos);
+                        intent.putExtra("uDate", subDate);
+                        setResult(1, intent);
+                        finish();
+                    }
+                }
+            });
+        }
+*/
     }
 }
