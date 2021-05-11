@@ -52,21 +52,25 @@ public class SQLiteHelper {
         }
     }
 
+    //메모작성
     public void InsertMemo(Memo memo){
         String sql = "INSERT INTO "+TABLE_NAME+" VALUES(NULL, '"+memo.mtitle+"','"+memo.mcontent+"','"+memo.mdate+"',"+memo.getIsdone()+");";
         db.execSQL(sql);
     }
 
+    //메모삭제
     public void deleteMemo(int position){
         String sql = "DELETE FROM "+TABLE_NAME+" WHERE seq = "+position+";";
         db.execSQL(sql);
     }
 
+    //메모업데이트
     public void updateMemo(Memo memo){
         String sql = "UPDATE "+TABLE_NAME+" SET mtitle = '"+memo.mtitle+"',mcontent = '"+memo.mcontent+"',mdate = '"+memo.mdate+"' WHERE seq = '"+memo.seq+"';";
         db.execSQL(sql);
     }
 
+    //메모리스트
     public ArrayList<Memo> selectAll(){
         String sql = "SELECT * FROM " +TABLE_NAME;
 
@@ -86,6 +90,7 @@ public class SQLiteHelper {
         return list;
     }
 
+    //메모한거 하나
     public void selectOne(int position){
         String sql = "SELECT * FROM "+TABLE_NAME+" WHERE seq = "+position+";";
         Cursor result = db.rawQuery(sql, null);

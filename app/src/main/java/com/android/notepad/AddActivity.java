@@ -23,6 +23,7 @@ public class AddActivity extends AppCompatActivity {
     Button btnDone, btnNo;
     TextView dates;
 
+    //메모 추가 취소시 전화면으로 이동
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -47,6 +48,7 @@ public class AddActivity extends AppCompatActivity {
         Date d = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         dates.setText("오늘날짜 : "+sdf.format(d));
+        //메모추가 이벤트
         btnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,6 +69,7 @@ public class AddActivity extends AppCompatActivity {
             }
         });
 
+        //메모추가 취소 버튼 이벤트
         btnNo.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override

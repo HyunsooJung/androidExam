@@ -26,15 +26,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NotePadActivity extends AppCompatActivity {
-
+    //db연결
     private SQLiteHelper dbHelper;
-
+    //리사이클러뷰
     private RecyclerView recyclerView;
+    //리사이클러어댑터
     private RecyclerAdpater recyclerAdpater;
+    //메모추가,취소,삭제 버튼
     private Button btnAdd, btnCanc, btndel;
-
+    //메모 리스트
     List<Memo> memoList;
 
+    //화면 초기화
     void selectAll(){
         recyclerView = findViewById(R.id.recycler_view);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(NotePadActivity.this);
@@ -46,11 +49,11 @@ public class NotePadActivity extends AppCompatActivity {
         recyclerAdpater.notifyDataSetChanged();
     }
 
-    int i=0;
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        //메모추가
         if(requestCode == 0){
             Memo addMemo = (Memo)data.getSerializableExtra("addMemo");
             recyclerAdpater.addItem(addMemo);
@@ -60,6 +63,7 @@ public class NotePadActivity extends AppCompatActivity {
 
 
         }
+        //메모수정
         if(requestCode == 1){
             Memo memos = (Memo)data.getSerializableExtra("memos");
             String uDate = data.getStringExtra("uDate");
@@ -95,6 +99,7 @@ public class NotePadActivity extends AppCompatActivity {
 
         btnAdd = findViewById(R.id.btnAdd);
         btndel = findViewById(R.id.btnDel);
+        //메모화면 넘기기 이벤트
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,10 +109,10 @@ public class NotePadActivity extends AppCompatActivity {
         });
 
         btnCanc = findViewById(R.id.btnCc);
+        //취소하기 이벤트
         btnCanc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                i=0;
                 recyclerView = findViewById(R.id.recycler_view);
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(NotePadActivity.this);
                 recyclerView.setLayoutManager(linearLayoutManager);
@@ -123,16 +128,22 @@ public class NotePadActivity extends AppCompatActivity {
         });
 
     }
+    //어댑터
     public class RecyclerAdpater extends RecyclerView.Adapter<RecyclerAdpater.ItemViewHolder> {
-
+        //메모리스트
         private List<Memo> listdata;
+        //체크박스버튼 보이는거에 필요한 불린값
         private boolean isDelete = false;
-        private boolean isbtn = false;
+        //메모삭제 버튼
         private Button btnDel = findViewById(R.id.btnDel);
+        //메모추가 버튼
         private Button btnAdd = findViewById(R.id.btnAdd);
+        //취소 버튼
         private Button btnCc = findViewById(R.id.btnCc);
 
+        //메모 삭제시 필요한 시퀀스 어레이
         int[] CkAr= new int[memoList.size()];
+        //화면에서 메모삭제위한 포지션 어레이
         int[] PoAr= new int[memoList.size()];
 
         public RecyclerAdpater(List<Memo> listdata) {
@@ -153,14 +164,17 @@ public class NotePadActivity extends AppCompatActivity {
             holder.mtitle.setText(memo.getMtitle());
             holder.mcontent.setText(memo.getMcontent());
             holder.mdate.setText(memo.getMdate());
+            //불린값에 따라 체크박스버튼 보이는지 여부, true면 보이게
             holder.btn_ch.setVisibility(isDelete ? View.VISIBLE : View.GONE);
 
         }
 
+        //메모추가
         void addItem (Memo memo){
             listdata.add(memo);
         }
 
+        //삭제
         void removeItem(int position){
             listdata.remove(position);
         }
@@ -171,10 +185,13 @@ public class NotePadActivity extends AppCompatActivity {
         }
 
         class ItemViewHolder extends RecyclerView.ViewHolder {
-
+            //제목
             private TextView mtitle;
+            //내용
             private TextView mcontent;
+            //날짜
             private TextView mdate;
+            //체크박스
             private CheckBox btn_ch;
 
             public ItemViewHolder(@NonNull View itemView) {
@@ -185,6 +202,7 @@ public class NotePadActivity extends AppCompatActivity {
                 this.mdate = itemView.findViewById(R.id.mdate);
                 this.btn_ch = itemView.findViewById(R.id.btn_ch);
 
+                //화면 길게누를시 체크박스 띄우고 삭제버튼 취소버튼 나오게함
                 itemView.setOnLongClickListener(new View.OnLongClickListener() {
                     @Override
                     public boolean onLongClick(View v) {
@@ -202,22 +220,20 @@ public class NotePadActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
 
+                        //각 위치
                         int position = getAdapterPosition();
+                        //각 위치에서의 시퀀스번호
                         int seq = (int)mtitle.getTag();
 
+                        //체크했을시 각 위치에 시퀀스와 위치값
                         if (btn_ch.isChecked()){
                             CkAr[position] = seq;
                             PoAr[position] = position;
-                            i++;
                         }
+                        //체크 해제했을시 각위치의 시퀀스는 0
                         else {
-                            i--;
                             CkAr[position] = 0;
                         }
-
-                        Log.v("i: ","i :"+ i);
-
-
                     }
                 });
 
@@ -229,6 +245,7 @@ public class NotePadActivity extends AppCompatActivity {
                         adb.setTitle("삭제");
                         adb.setMessage("메모를 삭제하시겠습니까?");
 
+                        //삭제취소
                         adb.setPositiveButton("아니오", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
@@ -236,21 +253,21 @@ public class NotePadActivity extends AppCompatActivity {
                             }
                         });
 
+                        //삭제
                         adb.setNegativeButton("예", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
+                                //메모 위치, 시퀀스 값 넣고 삭제
                                 for(int j=CkAr.length-1; j>=0; j--){
+                                    //시퀀스는 1부터 시작 따라서 0보다 큰값일 경우
                                     if(CkAr[j]>0){
-                                        Log.v("ckar: ","ckar: "+CkAr[j]);
-                                        Log.v("PoAr: ","PoAr: "+PoAr[j]);
-                                        Log.v("ckarlength: ","ckarlength: "+CkAr.length);
                                         dbHelper.deleteMemo(CkAr[j]);
                                         removeItem(PoAr[j]);
                                     }
                                 }
-                                i=0;
                                 notifyDataSetChanged();
+                                //삭제시 삭제버튼과 취소버튼 숨기고 메모하기 버튼 보이기, 체크박스 안보이기
                                 recyclerView = findViewById(R.id.recycler_view);
                                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(NotePadActivity.this);
                                 recyclerView.setLayoutManager(linearLayoutManager);
@@ -268,13 +285,14 @@ public class NotePadActivity extends AppCompatActivity {
                     }
                 });
 
-                //수정화면이동
+                //해당 메모 한번 클릭시 수정화면이동
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         int position = getAdapterPosition();
                         int seq = (int)mtitle.getTag();
 
+                        //화면이동시 메모수정에 필요한 데이터 넘기기
                         if(position != RecyclerView.NO_POSITION){
                             dbHelper.selectOne(seq);
                             Memo memo = listdata.get(position);
