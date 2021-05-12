@@ -228,7 +228,6 @@ public class NotePadActivity extends AppCompatActivity {
             holder.mdate.setText(memo.getMdate());
             //불린값에 따라 체크박스버튼 보이는지 여부, true면 보이게
             holder.btn_ch.setVisibility(isDelete ? View.VISIBLE : View.GONE);
-
         }
 
         //메모추가
@@ -269,6 +268,7 @@ public class NotePadActivity extends AppCompatActivity {
                     @Override
                     public boolean onLongClick(View v) {
                         isDelete = true;
+                        Log.v("isDelete: ","isDelete: "+isDelete);
                         btnDel.setVisibility(View.VISIBLE);
                         btnAdd.setVisibility(View.GONE);
                         btnCc.setVisibility(View.VISIBLE);
@@ -281,7 +281,6 @@ public class NotePadActivity extends AppCompatActivity {
                 btn_ch.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
                         //각 위치
                         int position = getAdapterPosition();
                         //각 위치에서의 시퀀스번호
@@ -303,6 +302,23 @@ public class NotePadActivity extends AppCompatActivity {
                 btnDel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        //시퀀스가 0인것의 갯수
+                        int ccc=0;
+                        for(int i=0; i<CkAr.length;i++){
+                            if(CkAr[i]==0){
+                                ccc++;
+                            }
+                        }
+
+                        for(int j=CkAr.length-1; j>=0; j--){
+                            //시퀀스가 0인것의 갯수와 메모 총개수가 같고 시퀀스의 값이 0이하일때 창 띄우기
+                            if(CkAr[j]<=0 && CkAr.length==ccc){
+                                Log.v("chak: ","chak: "+CkAr[j]);
+                                Toast.makeText(NotePadActivity.this,"삭제할 메모를 선택해주세요.",Toast.LENGTH_SHORT).show();
+                                return ;
+                            }
+                        }
+
                         AlertDialog.Builder adb = new AlertDialog.Builder(NotePadActivity.this);
                         adb.setTitle("삭제");
                         adb.setMessage("메모를 삭제하시겠습니까?");
@@ -351,19 +367,40 @@ public class NotePadActivity extends AppCompatActivity {
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        //체크박스 버튼 누를시 안눌리게
+                        if(!isDelete){
+                            int position = getAdapterPosition();
+                            int seq = (int)mtitle.getTag();
+
+                            //화면이동시 메모수정에 필요한 데이터 넘기기
+                            if(position != RecyclerView.NO_POSITION){
+                                dbHelper.selectOne(seq);
+                                Memo memo = listdata.get(position);
+                                memo.setSeq(seq);
+                                Context context = v.getContext();
+                                Intent intent = new Intent(context, ModActivity.class);
+                                intent.putExtra("memo",memo);
+                                startActivityForResult(intent,1);
+                            }
+                        }
+                        btn_ch.setTag(getAdapterPosition());
+                        //각 위치
                         int position = getAdapterPosition();
+                        //각 위치에서의 시퀀스번호
                         int seq = (int)mtitle.getTag();
 
-                        //화면이동시 메모수정에 필요한 데이터 넘기기
-                        if(position != RecyclerView.NO_POSITION){
-                            dbHelper.selectOne(seq);
-                            Memo memo = listdata.get(position);
-                            memo.setSeq(seq);
-                            Context context = v.getContext();
-                            Intent intent = new Intent(context, ModActivity.class);
-                            intent.putExtra("memo",memo);
-                            startActivityForResult(intent,1);
+                        //클릭전 체크박스 체크가 되어있으면 체크해제 및 시퀀스값0
+                        if (btn_ch.isChecked()){
+                            btn_ch.setChecked(false);
+                            CkAr[position] = 0;
+                            return;
                         }
+                        //클릭전 체크박스 체크가 해제되어있으면 시퀀스값, 위치값 설정
+                        else {
+                            CkAr[position] = seq;
+                            PoAr[position] = position;
+                        }
+                        btn_ch.setChecked(isDelete);
                     }
                 });
             }
