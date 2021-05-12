@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,11 +14,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.R;
 
@@ -36,6 +40,8 @@ public class NotePadActivity extends AppCompatActivity {
     private Button btnAdd, btnCanc, btndel;
     //메모 리스트
     List<Memo> memoList;
+    //검색
+    private SearchView search_view;
 
     //화면 초기화
     void selectAll(){
@@ -82,9 +88,18 @@ public class NotePadActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),0);
+        return true;
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.noactivity_main);
+
+        search_view = findViewById(R.id.search_view);
 
         dbHelper = new SQLiteHelper(NotePadActivity.this);
         memoList = dbHelper.selectAll();
@@ -127,7 +142,54 @@ public class NotePadActivity extends AppCompatActivity {
             }
         });
 
+        //검색기능
+        search_view.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                recyclerView = findViewById(R.id.recycler_view);
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(NotePadActivity.this);
+                recyclerView.setLayoutManager(linearLayoutManager);
+
+                //공백값 처리-리스트 전체 보여주기
+                if(query.equals("")){
+                    Toast.makeText(NotePadActivity.this,"전체검색",Toast.LENGTH_SHORT).show();
+                    memoList = dbHelper.selectAll();
+                    recyclerAdpater = new RecyclerAdpater(memoList);
+                    recyclerView.setAdapter(recyclerAdpater);
+                    recyclerAdpater.notifyDataSetChanged();
+                    return true;
+                }
+
+                CharSequence charSequence = search_view.getQuery();
+
+                String text = charSequence.toString();
+                Log.v("text1 : ","text1 : "+text);
+                memoList = dbHelper.search(text);
+                recyclerAdpater = new RecyclerAdpater(memoList);
+                recyclerView.setAdapter(recyclerAdpater);
+                recyclerAdpater.notifyDataSetChanged();
+
+                Toast.makeText(NotePadActivity.this,"검색되었습니다.",Toast.LENGTH_SHORT).show();
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //onQueryTextSubmit의 query는 빈값, null을 받아들이지 않는다
+                //따라서 공백인 경우 onQueryTextSubmit를 호출하면서 인자를 공백으로 보내준다.
+                if(newText.equals("")){
+                    this.onQueryTextSubmit("");
+                }
+                return false;
+            }
+        });
+
+
     }
+
+
+
     //어댑터
     public class RecyclerAdpater extends RecyclerView.Adapter<RecyclerAdpater.ItemViewHolder> {
         //메모리스트

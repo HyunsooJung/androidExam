@@ -5,6 +5,7 @@ import android.database.Cursor;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -104,4 +105,21 @@ public class SQLiteHelper {
         result.close();
     }
 
+    //검색
+    public ArrayList<Memo> search(String text){
+        String sql = "SELECT * FROM "+TABLE_NAME+ " WHERE mtitle "+"LIKE '%"+text+"%'"+" OR mcontent "+"LIKE '%"+text+"%'";
+        ArrayList<Memo> list = new ArrayList<>();
+
+        Cursor result = db.rawQuery(sql, null);
+        result.moveToFirst();
+        while(!result.isAfterLast()){
+            Memo memo = new Memo(result.getInt(0), result.getString(1), result.getString(2), result.getString(3), result.getInt(4));
+            list.add(memo);
+            Log.v("list : ","list: "+list.toString());
+            result.moveToNext();
+        }
+        result.close();
+
+        return list;
+    }
 }
