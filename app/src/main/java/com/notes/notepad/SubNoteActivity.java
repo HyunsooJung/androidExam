@@ -1,10 +1,10 @@
-package com.android.notepad;
+package com.notes.notepad;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-import com.android.R;
+import com.notes.R;
 
 public class SubNoteActivity extends AppCompatActivity {
 

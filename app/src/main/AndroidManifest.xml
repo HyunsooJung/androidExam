@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.android">
+    package="com.notes">
 
     <application
         android:allowBackup="true"
@@ -9,14 +9,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidExam">
-        <activity android:name=".notepad.SubNoteActivity"/>
-        <activity android:name=".notepad.ModActivity" />
-        <activity android:name=".notepad.AddActivity" />
-        <activity android:name=".exam.StopWatchActivity"/>
-        <activity android:name=".deign.DesignActivity"/>
-        <activity android:name=".recycler.MainActivity"/>
-        <activity android:name=".sharedpreference.SharedPreferenceActivity"/>
-        <activity android:name=".notepad.NotePadActivity">
+        <activity android:name="com.notes.notepad.SubNoteActivity"/>
+        <activity android:name="com.notes.notepad.ModActivity" />
+        <activity android:name="com.notes.notepad.AddActivity" />
+        <activity android:name="com.notes.exam.StopWatchActivity"/>
+        <activity android:name="com.notes.deign.DesignActivity"/>
+        <activity android:name="com.notes.recycler.MainActivity"/>
+        <activity android:name="com.notes.sharedpreference.SharedPreferenceActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.notes.notepad.NotePadActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

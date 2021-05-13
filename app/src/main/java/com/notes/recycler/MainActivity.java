@@ -1,21 +1,18 @@
-package com.android.recycler;
+package com.notes.recycler;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
 
-import com.android.R;
-import com.android.deign.DesignActivity;
-import com.android.exam.StopWatchActivity;
-import com.android.notepad.NotePadActivity;
-import com.android.sharedpreference.SharedPreferenceActivity;
+import com.notes.R;
+import com.notes.deign.DesignActivity;
+import com.notes.exam.StopWatchActivity;
+import com.notes.notepad.NotePadActivity;
+import com.notes.sharedpreference.SharedPreferenceActivity;
 
 import java.util.ArrayList;
 

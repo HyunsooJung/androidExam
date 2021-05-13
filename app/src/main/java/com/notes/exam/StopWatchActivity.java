@@ -1,4 +1,4 @@
-package com.android.exam;
+package com.notes.exam;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
@@ -12,8 +12,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.R;
-import com.android.deign.DesignActivity;
+import com.notes.R;
+import com.notes.deign.DesignActivity;
 
 
 public class StopWatchActivity extends AppCompatActivity {

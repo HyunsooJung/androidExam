@@ -1,4 +1,4 @@
-package com.android.sharedpreference;
+package com.notes.sharedpreference;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,7 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.EditText;
 
-import com.android.R;
+import com.notes.R;
 
 public class SharedPreferenceActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.android.notepad;
+package com.notes.notepad;
 
 import java.io.Serializable;
 //객체로 넘기기위해 serializable implemets함

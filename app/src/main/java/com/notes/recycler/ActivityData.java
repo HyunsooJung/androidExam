@@ -1,4 +1,4 @@
-package com.android.recycler;
+package com.notes.recycler;
 
 public class ActivityData extends MainData {
     String appName;

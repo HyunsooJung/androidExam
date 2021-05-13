@@ -1,4 +1,4 @@
-package com.android.notepad;
+package com.notes.notepad;
 
 import android.util.Log;
 

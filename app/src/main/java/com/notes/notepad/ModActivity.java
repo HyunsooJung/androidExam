@@ -1,4 +1,4 @@
-package com.android.notepad;
+package com.notes.notepad;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,7 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.android.R;
+import com.notes.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

@@ -1,4 +1,4 @@
-package com.android.exam;
+package com.notes.exam;
 
 import org.junit.Test;
 

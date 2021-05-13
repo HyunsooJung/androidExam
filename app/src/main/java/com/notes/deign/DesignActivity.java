@@ -1,4 +1,4 @@
-package com.android.deign;
+package com.notes.deign;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,8 +12,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.R;
-import com.android.exam.StopWatchActivity;
+import com.notes.R;
+import com.notes.exam.StopWatchActivity;
 
 
 public class DesignActivity extends AppCompatActivity {
