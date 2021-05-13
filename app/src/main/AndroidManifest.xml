@@ -9,37 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AndroidExam">
-        <activity android:name=".notepad.SubNoteActivity"></activity>
+        <activity android:name=".notepad.SubNoteActivity"/>
         <activity android:name=".notepad.ModActivity" />
         <activity android:name=".notepad.AddActivity" />
-        <activity android:name=".exam.StopWatchActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".deign.DesignActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".recycler.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".sharedpreference.SharedPreferenceActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".exam.StopWatchActivity"/>
+        <activity android:name=".deign.DesignActivity"/>
+        <activity android:name=".recycler.MainActivity"/>
+        <activity android:name=".sharedpreference.SharedPreferenceActivity"/>
         <activity android:name=".notepad.NotePadActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

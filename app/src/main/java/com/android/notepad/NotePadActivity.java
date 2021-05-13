@@ -28,6 +28,7 @@ import com.android.R;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class NotePadActivity extends AppCompatActivity {
     //db연결
@@ -40,6 +41,8 @@ public class NotePadActivity extends AppCompatActivity {
     private Button btnAdd, btnCanc, btndel;
     //메모 리스트
     List<Memo> memoList;
+    //메모리스트
+    private List<Memo> memoLists = new ArrayList<>();
     //검색
     private SearchView search_view;
 
@@ -50,9 +53,7 @@ public class NotePadActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
 
         memoList = dbHelper.selectAll();
-        recyclerAdpater = new RecyclerAdpater(memoList);
-        recyclerView.setAdapter(recyclerAdpater);
-        recyclerAdpater.notifyDataSetChanged();
+        recyclerAdpater.setItems(memoList);
     }
 
     @Override
@@ -133,12 +134,10 @@ public class NotePadActivity extends AppCompatActivity {
                 recyclerView.setLayoutManager(linearLayoutManager);
 
                 memoList = dbHelper.selectAll();
-                recyclerAdpater = new RecyclerAdpater(memoList);
-                recyclerView.setAdapter(recyclerAdpater);
                 btnAdd.setVisibility(View.VISIBLE);
                 btnCanc.setVisibility(View.GONE);
                 btndel.setVisibility(View.GONE);
-                recyclerAdpater.notifyDataSetChanged();
+                recyclerAdpater.setItems(memoList);
             }
         });
 
@@ -155,20 +154,15 @@ public class NotePadActivity extends AppCompatActivity {
                 if(query.equals("")){
                     Toast.makeText(NotePadActivity.this,"전체검색",Toast.LENGTH_SHORT).show();
                     memoList = dbHelper.selectAll();
-                    recyclerAdpater = new RecyclerAdpater(memoList);
-                    recyclerView.setAdapter(recyclerAdpater);
-                    recyclerAdpater.notifyDataSetChanged();
+                    recyclerAdpater.setItems(memoList);
                     return true;
                 }
 
                 CharSequence charSequence = search_view.getQuery();
 
                 String text = charSequence.toString();
-                Log.v("text1 : ","text1 : "+text);
                 memoList = dbHelper.search(text);
-                recyclerAdpater = new RecyclerAdpater(memoList);
-                recyclerView.setAdapter(recyclerAdpater);
-                recyclerAdpater.notifyDataSetChanged();
+                recyclerAdpater.setItems(memoList);
 
                 Toast.makeText(NotePadActivity.this,"검색되었습니다.",Toast.LENGTH_SHORT).show();
                 return true;
@@ -181,14 +175,16 @@ public class NotePadActivity extends AppCompatActivity {
                 if(newText.equals("")){
                     this.onQueryTextSubmit("");
                 }
+                //초성만 들어올경우 filTer함수에서 검색
+                else {
+                    recyclerAdpater.filTer(newText);
+                }
                 return false;
             }
         });
 
 
     }
-
-
 
     //어댑터
     public class RecyclerAdpater extends RecyclerView.Adapter<RecyclerAdpater.ItemViewHolder> {
@@ -210,6 +206,13 @@ public class NotePadActivity extends AppCompatActivity {
 
         public RecyclerAdpater(List<Memo> listdata) {
             this.listdata = listdata;
+        }
+
+        public void setItems(List<Memo> listdata) {
+            this.listdata = listdata;
+            recyclerAdpater = new RecyclerAdpater(listdata);
+            recyclerView.setAdapter(recyclerAdpater);
+            notifyDataSetChanged();
         }
 
         @NonNull
@@ -268,7 +271,6 @@ public class NotePadActivity extends AppCompatActivity {
                     @Override
                     public boolean onLongClick(View v) {
                         isDelete = true;
-                        Log.v("isDelete: ","isDelete: "+isDelete);
                         btnDel.setVisibility(View.VISIBLE);
                         btnAdd.setVisibility(View.GONE);
                         btnCc.setVisibility(View.VISIBLE);
@@ -351,12 +353,10 @@ public class NotePadActivity extends AppCompatActivity {
                                 recyclerView.setLayoutManager(linearLayoutManager);
 
                                 memoList = dbHelper.selectAll();
-                                recyclerAdpater = new RecyclerAdpater(memoList);
-                                recyclerView.setAdapter(recyclerAdpater);
                                 btnAdd.setVisibility(View.VISIBLE);
                                 btnCanc.setVisibility(View.GONE);
                                 btndel.setVisibility(View.GONE);
-                                recyclerAdpater.notifyDataSetChanged();
+                                recyclerAdpater.setItems(memoList);
                             }
                         });
                         adb.show();
@@ -404,6 +404,31 @@ public class NotePadActivity extends AppCompatActivity {
                     }
                 });
             }
+        }
+
+        //초성검색-sqlite이용 안함
+        public void filTer(String charText){
+            charText = charText.toLowerCase(Locale.getDefault());
+            memoList = dbHelper.selectAll();
+            listdata.clear();
+            //텍스트 길이가 0일시 모든 리스트 출력
+            if(charText.length() == 0){
+                listdata.addAll(memoList);
+            }
+            //제목과 내용 초성검색
+            else{
+                for(Memo me : memoList){
+                    String iniName = HangulUtils.getHangulInitialSound(me.getMtitle(),charText);
+                    String inName = HangulUtils.getHangulInitialSound(me.getMcontent(),charText);
+                    if((iniName.indexOf(charText) >= 0) || (inName.indexOf(charText) >= 0)){
+                        listdata.add(me);
+                    }
+                    else if (me.getMtitle().toLowerCase(Locale.getDefault()).contains(charText)){
+                        listdata.add(me);
+                    }
+                }
+            }
+            notifyDataSetChanged();
         }
     }
 }
